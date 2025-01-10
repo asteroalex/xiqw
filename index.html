@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #000;
+            background-color: #2a0044; /* Темно-фиолетовый фон */
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -36,16 +36,11 @@
         .star {
             width: 300px;
             cursor: pointer;
-            transition: transform 0.1s ease-out;
             position: absolute;
             top: 30%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
-        }
-
-        .star:active {
-            transform: scale(0.9);
         }
 
         .boosts-section {
@@ -286,8 +281,10 @@
                 count -= upgradePrice;
                 coinsPerClick += 1;
                 upgradePrice *= 2;
+
                 coinsCount.textContent = count;
                 upgradePriceEl.textContent = upgradePrice;
+
                 saveData();
             } else {
                 alert("Not enough coins!");
@@ -299,9 +296,11 @@
                 count -= energyLimitUpgradePrice;
                 energyLimit += 500;
                 energyLimitUpgradePrice *= 2;
+
+                coinsCount.textContent = count;
                 energyLimitEl.textContent = energyLimit;
                 energyLimitPriceEl.textContent = energyLimitUpgradePrice;
-                coinsCount.textContent = count;
+
                 saveData();
             } else {
                 alert("Not enough coins!");

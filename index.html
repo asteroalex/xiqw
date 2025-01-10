@@ -24,10 +24,13 @@
         .score {
             font-size: 2rem;
             font-weight: bold;
-            margin-top: 20px;
             z-index: 10;
             display: flex;
             align-items: center;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .score img {
@@ -283,10 +286,8 @@
                 count -= upgradePrice;
                 coinsPerClick += 1;
                 upgradePrice *= 2;
-
                 coinsCount.textContent = count;
                 upgradePriceEl.textContent = upgradePrice;
-
                 saveData();
             } else {
                 alert("Not enough coins!");
@@ -298,11 +299,9 @@
                 count -= energyLimitUpgradePrice;
                 energyLimit += 500;
                 energyLimitUpgradePrice *= 2;
-
                 coinsCount.textContent = count;
                 energyLimitEl.textContent = energyLimit;
                 energyLimitPriceEl.textContent = energyLimitUpgradePrice;
-
                 saveData();
             } else {
                 alert("Not enough coins!");

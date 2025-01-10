@@ -1,0 +1,64 @@
+const star = document.getElementById('clickableStar');
+const coinsCount = document.getElementById('coinsCount');
+const boostsButton = document.getElementById('boostsButton');
+const boostsModal = document.getElementById('boostsModal');
+const overlay = document.getElementById('overlay');
+const upgradePriceEl = document.getElementById('upgradePrice');
+
+let count = parseInt(localStorage.getItem('starCount')) || 0;
+let upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || 1;
+let upgradePrice = parseInt(localStorage.getItem('upgradePrice')) || 128;
+
+// Обновляем интерфейс при загрузке
+coinsCount.textContent = count;
+upgradePriceEl.textContent = upgradePrice;
+
+// Логика клика на звезду
+star.addEventListener('click', () => {
+    count += upgradeLevel;
+    coinsCount.textContent = count;
+
+    localStorage.setItem('starCount', count);
+    createFloatingText(`+${upgradeLevel}`);
+});
+
+// Логика покупки улучшений
+boostsButton.addEventListener('click', () => {
+    boostsModal.classList.add('visible');
+    overlay.classList.add('visible');
+});
+
+overlay.addEventListener('click', closeModal);
+boostsModal.addEventListener('click', (e) => {
+    if (count >= upgradePrice) {
+        count -= upgradePrice;
+        upgradeLevel++;
+        upgradePrice = Math.ceil(upgradePrice * 1.5);
+
+        // Обновляем интерфейс и локальное хранилище
+        coinsCount.textContent = count;
+        upgradePriceEl.textContent = upgradePrice;
+
+        localStorage.setItem('starCount', count);
+        localStorage.setItem('upgradeLevel', upgradeLevel);
+        localStorage.setItem('upgradePrice', upgradePrice);
+    }
+});
+
+function closeModal() {
+    boostsModal.classList.remove('visible');
+    overlay.classList.remove('visible');
+}
+
+// Функция создания анимации текста
+function createFloatingText(text) {
+    const textElement = document.createElement('div');
+    textElement.textContent = text;
+    textElement.classList.add('floating-text');
+    textElement.style.left = `${Math.random() * window.innerWidth}px`;
+    textElement.style.top = `${Math.random() * window.innerHeight}px`;
+    document.body.appendChild(textElement);
+    setTimeout(() => {
+        document.body.removeChild(textElement);
+    }, 1000);
+}
